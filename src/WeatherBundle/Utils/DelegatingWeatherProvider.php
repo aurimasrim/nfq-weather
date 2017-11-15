@@ -5,9 +5,12 @@
  * Date: 17.10.17
  * Time: 15.30
  */
-namespace Nfq\Weather;
+namespace WeatherBundle\Utils;
 
 use Psr\Log\LoggerInterface;
+use WeatherBundle\Exception\WeatherProviderException;
+use WeatherBundle\Model\Location;
+use WeatherBundle\Model\Weather;
 
 class DelegatingWeatherProvider implements WeatherProviderInterface
 {
@@ -29,7 +32,7 @@ class DelegatingWeatherProvider implements WeatherProviderInterface
         foreach ($providers as $provider)
         {
 
-            if (is_a($provider, 'Nfq\Weather\WeatherProviderInterface'))
+            if (is_a($provider, 'WeatherBundle\\WeatherProviderInterface'))
             {
                 $this->providers[] = $provider;
             }

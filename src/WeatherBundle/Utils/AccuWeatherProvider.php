@@ -6,8 +6,12 @@
  * Time: 15.27
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Utils;
 
+
+use WeatherBundle\Exception\WeatherProviderException;
+use WeatherBundle\Model\Location;
+use WeatherBundle\Model\Weather;
 
 class AccuWeatherProvider implements  WeatherProviderInterface
 {

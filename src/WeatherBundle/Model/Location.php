@@ -6,7 +6,7 @@
  * Time: 15.09
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Model;
 
 
 class Location

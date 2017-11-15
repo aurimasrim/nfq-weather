@@ -6,7 +6,11 @@
  * Time: 15.21
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Utils;
+
+use WeatherBundle\Exception\WeatherProviderException;
+use WeatherBundle\Model\Location;
+use WeatherBundle\Model\Weather;
 
 class OpenWeatherMapWeatherProvider implements WeatherProviderInterface
 {

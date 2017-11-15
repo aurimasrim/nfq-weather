@@ -6,12 +6,15 @@
  * Time: 17.40
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Utils;
 
 
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use WeatherBundle\Exception\WeatherProviderException;
+use WeatherBundle\Model\Location;
+use WeatherBundle\Model\Weather;
 
 class CachedWeatherProvider implements WeatherProviderInterface
 {

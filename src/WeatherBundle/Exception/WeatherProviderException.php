@@ -6,7 +6,7 @@
  * Time: 15.19
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Exception;
 
 
 class WeatherProviderException extends \Exception

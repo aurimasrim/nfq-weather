@@ -6,8 +6,11 @@
  * Time: 15.17
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Utils;
 
+
+use WeatherBundle\Model\Location;
+use WeatherBundle\Model\Weather;
 
 interface WeatherProviderInterface
 {

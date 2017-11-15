@@ -6,7 +6,7 @@
  * Time: 15.15
  */
 
-namespace Nfq\Weather;
+namespace WeatherBundle\Model;
 
 class Weather
 {
