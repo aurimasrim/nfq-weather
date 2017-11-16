@@ -35,31 +35,30 @@ class WeatherExtension extends Extension
 //        $loader->load('accu.yml');
 
 
-        if ($config['providers']['accu']) {
+        if (array_key_exists('accu', $config['providers'])) {
             $container->register('weather.accu', AccuWeatherProvider::class)
                 ->addArgument($config['providers']['accu']['api_key']);
 
         }
 
-        if ($config['providers']['openweathermap']) {
+        if (array_key_exists('openweathermap', $config['providers'])) {
             $container->register('weather.openweathermap',OpenWeatherMapWeatherProvider::class)
                 ->addArgument($config['providers']['openweathermap']['api_key']);
         }
 
-        if ($config['providers']['cached']) {
+        if (array_key_exists('cached', $config['providers'])) {
             $container->register('weather.cached', CachedWeatherProvider::class)
                 ->addArgument(new Reference(CacheItemPoolInterface::class))
                 ->addArgument(new Reference('weather.' . $config['providers']['cached']['provider']))
                 ->addArgument(new Reference(LoggerInterface::class));
         }
-        $delProviders = [];
 
+        if (array_key_exists('delegating', $config['providers'])) {
+            $delProviders = [];
+            foreach ($config['providers']['delegating']['providers'] as $prov) {
+                $delProviders[] = new Reference('weather.' . $prov);
+            }
 
-        foreach ($config['providers']['delegating']['providers'] as $prov) {
-            $delProviders[] = new Reference('weather.' . $prov);
-        }
-
-        if ($config['providers']['delegating']) {
             $container->register('weather.delegating', DelegatingWeatherProvider::class)
                 ->addArgument($delProviders)
                 ->addArgument(new Reference('monolog.logger'));
