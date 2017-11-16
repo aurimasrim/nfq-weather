@@ -7,6 +7,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    accu_api_key: AGlTcFCAWeQta6P2WqcqsO4mttrXBWOra
+    openweathermap_api_key: 6a66328d77af8467cc67b9b61fbc3475
 
 framework:
     #esi: ~
