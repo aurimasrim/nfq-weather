@@ -19,7 +19,7 @@ class AccuWeatherProvider implements  WeatherProviderInterface
     private const LOCATIONURI = '/locations/v1/cities/geoposition/search.json?';
     private const WEATHERURI = '/currentconditions/v1/';
 
-    private $zapiKey;
+    private $apiKey;
 
     public function __construct($apiKey)
     {
