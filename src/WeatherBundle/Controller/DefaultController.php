@@ -14,13 +14,10 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, WeatherProviderInterface $weatherProvider)
     {
-        $weatherProvider = $this->container->get('weather.interface');
-
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            'base_dir' => get_class($weatherProvider) . ' key='
+            'base_dir' => get_class($weatherProvider)
         ]);
     }
 }

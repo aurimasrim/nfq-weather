@@ -38,6 +38,7 @@ class WeatherExtension extends Extension
         if ($config['providers']['accu']) {
             $container->register('weather.accu', AccuWeatherProvider::class)
                 ->addArgument($config['providers']['accu']['api_key']);
+
         }
 
         if ($config['providers']['openweathermap']) {
@@ -65,12 +66,6 @@ class WeatherExtension extends Extension
         }
 
         $container->setAlias('weather.interface', 'weather.' . $config['provider']);
-
-//        $container->setAlias()
-//        switch($config['provider']) {
-//            case 'accu':
-//                $container->register(AccuWeatherProvider::class, AccuWeatherProvider::class)
-//                    ->addArgument($config['pro'])
-//        }
+        $container->setAlias(WeatherProviderInterface::class, 'weather.interface');
     }
 }
