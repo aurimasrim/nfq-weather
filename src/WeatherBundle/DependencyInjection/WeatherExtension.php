@@ -8,9 +8,12 @@
 
 namespace WeatherBundle\DependencyInjection;
 
+use Couchbase\Exception;
 use Monolog\Logger;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -31,10 +34,6 @@ class WeatherExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-//        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-//        $loader->load('accu.yml');
-
-
         if (array_key_exists('accu', $config['providers'])) {
             $container->register('weather.accu', AccuWeatherProvider::class)
                 ->addArgument($config['providers']['accu']['api_key']);
@@ -47,8 +46,12 @@ class WeatherExtension extends Extension
         }
 
         if (array_key_exists('cached', $config['providers'])) {
+            $container->register('weather.cache', FilesystemAdapter::class)
+                ->addArgument('weather')
+                ->addArgument($config['providers']['cached']['ttl']);
+
             $container->register('weather.cached', CachedWeatherProvider::class)
-                ->addArgument(new Reference(CacheItemPoolInterface::class))
+                ->addArgument(new Reference('weather.cache'))
                 ->addArgument(new Reference('weather.' . $config['providers']['cached']['provider']))
                 ->addArgument(new Reference(LoggerInterface::class));
         }
@@ -61,7 +64,7 @@ class WeatherExtension extends Extension
 
             $container->register('weather.delegating', DelegatingWeatherProvider::class)
                 ->addArgument($delProviders)
-                ->addArgument(new Reference('monolog.logger'));
+                ->addArgument(new Reference(LoggerInterface::class));
         }
 
         $container->setAlias('weather.interface', 'weather.' . $config['provider']);
