@@ -32,7 +32,7 @@ class DelegatingWeatherProvider implements WeatherProviderInterface
         foreach ($providers as $provider)
         {
 
-            if (is_a($provider, 'WeatherBundle\\WeatherProviderInterface'))
+            if (is_a($provider, WeatherProviderInterface::class))
             {
                 $this->providers[] = $provider;
             }
