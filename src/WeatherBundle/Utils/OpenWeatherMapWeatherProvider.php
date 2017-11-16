@@ -66,12 +66,12 @@ class OpenWeatherMapWeatherProvider implements WeatherProviderInterface
         {
             throw new WeatherProviderException('Invalid provider response. Bad file format.');
         }
-
-        $temperature = $json['main']['temp'];
-        if (empty($temperature))
+        
+        if (!array_key_exists('main', $json) || empty($json['main']))
         {
             throw new WeatherProviderException('Invalid provider response. JSON file do not include required information.');
         }
+        $temperature = $json['main']['temp'];
         $pressure = $json['main']['pressure'];
         $humidity = $json['main']['humidity'];
         $windSpeed = $json['wind']['speed'];

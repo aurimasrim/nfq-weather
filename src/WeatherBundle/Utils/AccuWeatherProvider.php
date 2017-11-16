@@ -19,7 +19,7 @@ class AccuWeatherProvider implements  WeatherProviderInterface
     private const LOCATIONURI = '/locations/v1/cities/geoposition/search.json?';
     private const WEATHERURI = '/currentconditions/v1/';
 
-    private $apiKey;
+    private $zapiKey;
 
     public function __construct($apiKey)
     {
@@ -79,12 +79,11 @@ class AccuWeatherProvider implements  WeatherProviderInterface
             throw new WeatherProviderException('Invalid provider location response. Bad file format.');
         }
 
-        $key = $json['Key'];
-        if (empty($key))
+        if (!array_key_exists('Key', $json) || empty($json['Key']))
         {
             throw new WeatherProviderException('Invalid provider location response. JSON file do not hold required information.');
         }
-        return $key;
+        return $json['Key'];
     }
 
     private function parseWeather($value, $units): Weather
