@@ -8,16 +8,10 @@
 
 namespace WeatherBundle\DependencyInjection;
 
-use Couchbase\Exception;
-use Monolog\Logger;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use WeatherBundle\Utils\AccuWeatherProvider;
 use WeatherBundle\Utils\CachedWeatherProvider;

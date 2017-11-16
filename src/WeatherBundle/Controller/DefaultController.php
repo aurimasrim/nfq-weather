@@ -6,8 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use WeatherBundle\Model\Location;
-use WeatherBundle\Utils\AccuWeatherProvider;
-use WeatherBundle\Utils\DelegatingWeatherProvider;
 use WeatherBundle\Utils\WeatherProviderInterface;
 
 class DefaultController extends Controller
