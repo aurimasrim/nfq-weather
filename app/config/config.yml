@@ -67,3 +67,18 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+weather:
+    provider: cached
+    providers:
+        accu:
+            api_key: '%accu_api_key%'
+        openweathermap:
+            api_key: '%openweathermap_api_key%'
+        delegating:
+            providers:
+                - accu
+                - openweathermap
+        cached:
+            provider: delegating
+            ttl: 30
