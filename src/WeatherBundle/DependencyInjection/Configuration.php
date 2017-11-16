@@ -12,10 +12,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('nfq_weather');
 
+        $providers = ['accu', 'openweathermap', 'delegating', 'cached'];
+
         $rootNode
             ->children()
                 ->enumNode('provider')
-                    ->values(['accu', 'openweathermap', 'delegating', 'cached'])
+                    ->values($providers)
                 ->end()
                 ->arrayNode('providers')
                     ->isRequired()
@@ -33,13 +35,17 @@ class Configuration implements ConfigurationInterface
                             ->arrayNode('delegating')
                                 ->children()
                                     ->arrayNode('providers')
-                                        ->scalarPrototype()->end()
+                                        ->enumPrototype()
+                                            ->values($providers)
+                                        ->end()
                                     ->end()
                                 ->end()
                             ->end()
                             ->arrayNode('cached')
                                 ->children()
-                                    ->scalarNode('provider')->end()
+                                    ->enumNode('provider')
+                                        ->values($providers)
+                                    ->end()
                                     ->integerNode('ttl')->end()
                                 ->end()
                             ->end()
